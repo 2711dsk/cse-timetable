@@ -2,35 +2,39 @@ version: "3.9"
 
 services:
   client:
-    build: client
+    build: ./client
     ports:
       - "5173:5173"
     networks:
       - timetable
 
+  db:
+    image: mysql:latest
+    container_name: mysql-5.7
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: timetable_cse
+      MYSQL_ROOT_PASSWORD: root  # Set a root password (you had it empty)
+      MYSQL_ROOT_HOST: localhost
+    networks:
+      - timetable
+    volumes:
+      - db_data:/var/lib/mysql
+
   server:
-    build: server
+    build: ./server
     ports:
       - "3000:3000"
     depends_on:
       - db
-    environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASSWORD=
-      - DB_NAME=timetable_cse
     networks:
       - timetable
 
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_DATABASE: timetable_cse
-      MYSQL_ROOT_PASSWORD: ""
-    networks:
-      - timetable
-
-networks: 
+  
+networks:
   timetable:
     driver: bridge
+
+volumes:
+  db_data:
