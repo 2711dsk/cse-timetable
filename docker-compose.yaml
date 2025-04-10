@@ -15,8 +15,8 @@ services:
       - "3307:3306"
     environment:
       MYSQL_DATABASE: timetable_cse
-      MYSQL_ROOT_PASSWORD: root  # Set a root password (you had it empty)
-      MYSQL_ROOT_HOST: localhost
+      MYSQL_ROOT_PASSWORD: "" 
+      MYSQL_ROOT_HOST: '%'                  
     networks:
       - timetable
     volumes:
@@ -31,7 +31,6 @@ services:
     networks:
       - timetable
 
-  
 networks:
   timetable:
     driver: bridge

@@ -9,8 +9,7 @@ RUN npm install
 # Fix esbuild platform mismatch issue
 RUN npm rebuild esbuild
 
-# (Optional) install react-router-dom only if it's not in package.json
-# RUN npm install react-router-dom
+RUN npm install react-router-dom
 
 COPY . .
 
