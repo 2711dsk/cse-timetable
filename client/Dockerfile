@@ -1,15 +1,10 @@
-FROM node:22.13.0
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+COPY package*.json ./
 
 RUN npm install
-
-# Fix esbuild platform mismatch issue
-RUN npm rebuild esbuild
-
-RUN npm install react-router-dom
 
 COPY . .
 

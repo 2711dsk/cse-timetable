@@ -2,38 +2,21 @@ version: "3.9"
 
 services:
   client:
-    build: ./client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client-container
     ports:
       - "5173:5173"
-    networks:
-      - timetable
-
-  db:
-    image: mysql:latest
-    container_name: mysql-5.7
-    ports:
-      - "3307:3306"
-    environment:
-      MYSQL_DATABASE: timetable_cse
-      MYSQL_ROOT_PASSWORD: "" 
-      MYSQL_ROOT_HOST: '%'                  
-    networks:
-      - timetable
-    volumes:
-      - db_data:/var/lib/mysql
+    env_file:
+      - ./client/.env
 
   server:
-    build: ./server
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server-container
     ports:
       - "3000:3000"
-    depends_on:
-      - db
-    networks:
-      - timetable
-
-networks:
-  timetable:
-    driver: bridge
-
-volumes:
-  db_data:
+    env_file:
+      - ./server/.env

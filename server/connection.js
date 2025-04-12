@@ -1,7 +1,7 @@
 import mysql from "mysql";
 
 const db = mysql.createConnection({
-    host: "localhost",
+    host: "host.docker.internal",
     user: "root",
     password: "",
     database: "timetable_cse"
